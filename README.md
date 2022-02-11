@@ -10,3 +10,7 @@ Even in this kind of situation, I still consider this part would have the educat
 
 ## Release Edition
 Remember to config the CMakeLists right, as we have not used the regular way to config it.
+
+## Dataset
+DTU dataset: https://roboimagedata.compute.dtu.dk/  
+Middlebury: https://vision.middlebury.edu/stereo/data/
