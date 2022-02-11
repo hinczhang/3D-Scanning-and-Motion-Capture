@@ -1,4 +1,5 @@
 # 3D-Scanning-and-Motion-Capture
+Mainly for Structure from Motion (SfM) and Multiview Stereo (MVS).
 
 ## Debug Edition
 Debug edition contains some original test code,containing the full workflow of making the wheel for SfM calculation.  
