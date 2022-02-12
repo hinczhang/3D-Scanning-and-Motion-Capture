@@ -28,3 +28,7 @@ However, we should clarify our workflow and some tricky components in our code. 
 ## Dataset
 DTU dataset: https://roboimagedata.compute.dtu.dk/  
 Middlebury: https://vision.middlebury.edu/stereo/data/
+
+## Contribution
+SfM and MVS C++: Zhang, Jiongyan  
+disclaimer and comments: ChenBarryHu
