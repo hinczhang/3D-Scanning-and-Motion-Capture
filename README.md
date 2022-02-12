@@ -22,7 +22,7 @@ However, we should clarify our workflow and some tricky components in our code. 
   
 4. We than use the `PnP` algorithm to get R and T of the current right image, as we have the keypoints and the corresponding 3D points of the right image. Then we try to use the `fusion_structure` function (see [here](https://github.com/hinczhang/3D-Scanning-and-Motion-Capture/blob/be94566c63d8db5dcffb68a6462646c31f565806/releaseEdition/SfM/Stereo.cpp#L220)) to integrate 3D points and, more important, the index stucture, which could be used to inquiry the relationship between 3D points and 2D keypoints;  
   
-> 5. [Bundle adjustment](https://github.com/hinczhang/3D-Scanning-and-Motion-Capture/blob/be94566c63d8db5dcffb68a6462646c31f565806/releaseEdition/MVStereo/mv_stereo.cpp#L95). We try to load 3D points, keypoints, the intrinsic matrix along with extrinsic matrix to calculate the loss.
+5. [Bundle adjustment](https://github.com/hinczhang/3D-Scanning-and-Motion-Capture/blob/be94566c63d8db5dcffb68a6462646c31f565806/releaseEdition/MVStereo/mv_stereo.cpp#L95). We try to load 3D points, keypoints, the intrinsic matrix along with extrinsic matrix to calculate the loss.
   
 
 ## Dataset
