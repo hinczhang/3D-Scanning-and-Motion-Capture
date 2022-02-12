@@ -338,8 +338,8 @@ void stereo::StereoPairs::simplified(){
 
     
 
-    cv::stereoRectify(K,distCoefL,K,distCoefR,leftImg.size(),R_vector,T2,Rl,Rr,Pl,Pr,Q,cv::CALIB_ZERO_DISPARITY,0,leftImg.size(),&leftRec,&rightRec);  //校正旋转矩阵R，投影矩阵P 重投影矩阵Q
-    cv::Mat mapLx, mapLy, mapRx, mapRy;     //映射表
+    cv::stereoRectify(K,distCoefL,K,distCoefR,leftImg.size(),R_vector,T2,Rl,Rr,Pl,Pr,Q,cv::CALIB_ZERO_DISPARITY,0,leftImg.size(),&leftRec,&rightRec);  
+    cv::Mat mapLx, mapLy, mapRx, mapRy; 
     cv::initUndistortRectifyMap(K, distCoefL, Rl, Pl, leftImg.size(), CV_32FC1, mapLx, mapLy);
     cv::initUndistortRectifyMap(K, distCoefR, Rr, Pr, rightImg.size(), CV_32FC1, mapRx, mapRy);
 
@@ -351,8 +351,8 @@ void stereo::StereoPairs::simplified(){
     cv::Mat disp, dispf, disp8;
     
   /*
-    cv::stereoRectify(K1,distCoefL,K2,distCoefR,leftImg.size(),R_vector,T2,Rl,Rr,Pl,Pr,Q,cv::CALIB_ZERO_DISPARITY,0,leftImg.size(),&leftRec,&rightRec);  //校正旋转矩阵R，投影矩阵P 重投影矩阵Q
-    cv::Mat mapLx, mapLy, mapRx, mapRy;     //映射表
+    cv::stereoRectify(K1,distCoefL,K2,distCoefR,leftImg.size(),R_vector,T2,Rl,Rr,Pl,Pr,Q,cv::CALIB_ZERO_DISPARITY,0,leftImg.size(),&leftRec,&rightRec);  
+    cv::Mat mapLx, mapLy, mapRx, mapRy; 
     cv::initUndistortRectifyMap(K1, distCoefL, Rl, Pl, leftImg.size(), CV_32FC1, mapLx, mapLy);
     cv::initUndistortRectifyMap(K2, distCoefR, Rr, Pr, rightImg.size(), CV_32FC1, mapRx, mapRy);
 
