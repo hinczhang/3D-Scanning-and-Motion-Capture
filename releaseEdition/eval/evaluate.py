@@ -1,3 +1,7 @@
+'''
+File Created: Monday, 15th Jan 2021 1:35:30 pm
+Author: Shichen Hu (shichen.hu@tum.de)
+'''
 import os
 from tkinter import CENTER
 import cv2
@@ -10,14 +14,16 @@ from stereomideval.dataset import Dataset
 # import open3d
 from matplotlib import pyplot as plt 
 
-
+# point this to the middlebury 2021 dataset folder
 DATASET_FOLDER = os.path.join(os.getcwd(),"middlebury2021")
 scene_list = os.listdir(DATASET_FOLDER)
 
+# flags for evalludating keypoints or dense matching
 EVALUATE_KEYPOINT = True
 EVALUATE_DENSE_MATCHING = False
 
 def match(kp_left, dptr_left, kp_right, dptr_right, method="flann", detect="orb"):
+    """Keypoints matching by flann or bf"""
     if method == "flann":
         if detect != "orb":
             # KD tree indexing
@@ -50,6 +56,7 @@ def match(kp_left, dptr_left, kp_right, dptr_right, method="flann", detect="orb"
     return good_matches
 
 def extract_points(left_img, right_img, method):
+    "keypoints extraction by ORB, SIFT or SURF"
     if method == "orb":
         method_fn = cv2.ORB_create()
     elif method == "sift":
@@ -64,6 +71,7 @@ def extract_points(left_img, right_img, method):
     
 
 def MatchingsToF(matches, kp0, kp1, K):
+    """Recover fundamental matrix from matching"""
     pts0, pts1 = [], []
     for m in matches:
         idx0 = m.queryIdx
@@ -82,6 +90,7 @@ def MatchingsToF(matches, kp0, kp1, K):
     return num_inliers, num_outliers
 
 def evaluate_keypoints(detector=["orb","sift"], matcher="bf"):
+    "print out the statistics for keypoint evaluation"
     if "orb" in detector:
         orb_list= []
     if "sift" in detector:
@@ -145,6 +154,7 @@ def evaluate_keypoints(detector=["orb","sift"], matcher="bf"):
 
 
 def evaluate_disparity(mvs_method="SGBM", display_images=False, generate_gt_pc=False, generate_pc=False, gt=False, save_disp=False, save_depth=False):
+    """print out the evaluation metrics and store the generated depth/disparity maps and pointcloud"""
     timer = Timer()
     timer.start()
     bad_scores = []

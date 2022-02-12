@@ -1,11 +1,15 @@
+'''
+File Created: Monday, 15th Jan 2021 1:35:30 pm
+Author: Shichen Hu (shichen.hu@tum.de)
+Modified based on https://github.com/i3drobotics/stereomideval/blob/main/stereomideval/stereomideval/dataset.py
+'''
 import numpy as np
-# from pypfm import PFMLoader
 import re
 import os
 import cv2
 from stereomideval.exceptions import PathNotFound
 from stereomideval.dataset import Dataset
-# credit to: https://www.programcreek.com/python/?CodeExample=save+depth
+
 
 
 
@@ -37,7 +41,7 @@ class CalibrationData:
         self.vmin = vmin
         self.vmax = vmax
 
-
+# credit to: https://www.programcreek.com/python/?CodeExample=save+depth
 def save_depth_to_pgm(depth, pgm_file_path):
     """
     Save the depth map to PGM file
@@ -56,12 +60,13 @@ def save_depth_to_pgm(depth, pgm_file_path):
         f.write(bytes("65535\n", encoding="ascii"))
         f.write(depth_copy.tobytes()) 
         
-#Function to create point cloud file
-def create_output(vertices, colors, filename):
-	colors = colors.reshape(-1,3)
-	vertices = np.hstack([vertices.reshape(-1,3),colors])
 
-	ply_header = '''ply
+def create_output(vertices, colors, filename):
+    """store point cloud to a file"""
+    colors = colors.reshape(-1,3)
+    vertices = np.hstack([vertices.reshape(-1,3),colors])
+
+    ply_header = '''ply
 		format ascii 1.0
 		element vertex %(vert_num)d
 		property float x
@@ -72,9 +77,11 @@ def create_output(vertices, colors, filename):
 		property uchar blue
 		end_header
 		'''
-	with open(filename, 'w') as f:
-		f.write(ply_header %dict(vert_num=len(vertices)))
-		np.savetxt(f,vertices,'%f %f %f %d %d %d')
+    with open(filename, 'w') as f:
+        f.write(ply_header %dict(vert_num=len(vertices)))
+        np.savetxt(f,vertices,'%f %f %f %d %d %d')
+
+
 def disp_to_depth(disp, focal_length, doffs, baseline):
         """
         Convert from disparity to depth using calibration file
@@ -134,16 +141,6 @@ def load_scene_disparity(scene_name, dataset_folder, display_images=False,
             cv2.imwrite(save_path, cv2.applyColorMap(norm_disp_image_resize, cv2.COLORMAP_JET))
         return disp_image
 
-# Fcuntion to read pfm file
-# def read_pfm_file(path):
-#     """
-#     Read from .pfm file
-#     :param flow_file: name of the flow file
-#     :return: optical flow data in matrix
-#     """
-#     loader = PFMLoader(color=False, compress=False)
-#     data = loader.load_pfm(path)
-#     return data 
 
 def read_pfm_file(file):
     file = open(file, 'rb')
