@@ -31,4 +31,5 @@ Middlebury: https://vision.middlebury.edu/stereo/data/
 
 ## Contribution
 SfM and MVS C++: Zhang, Jiongyan  
-SfM and MVS eval python: Barry Shichen Hu
+SfM and MVS with eval python: Barry Shichen Hu
+Project Report: Ran Ding, Jiongyan, Barry
