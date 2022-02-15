@@ -20,8 +20,8 @@ DATASET_FOLDER = os.path.join(os.getcwd(),"middlebury2021")
 scene_list = os.listdir(DATASET_FOLDER)
 
 # flags for evalludating keypoints or dense matching
-EVALUATE_KEYPOINT = True
-EVALUATE_DENSE_MATCHING = False
+EVALUATE_KEYPOINT = False
+EVALUATE_DENSE_MATCHING = True
 
 def match(kp_left, dptr_left, kp_right, dptr_right, method="flann", detect="orb"):
     """Keypoints matching by flann or bf"""
@@ -160,15 +160,13 @@ def evaluate_disparity(mvs_method="SGBM", display_images=False, generate_gt_pc=F
     timer.start()
     bad_scores = []
     for scene in tqdm(scene_list):
-        if scene != "traproom1":
-            continue
         # load the left and right images
         left_img, right_img = load_scene_stereo_pair(scene,DATASET_FOLDER, False)
         left_img_grayscale = cv2.cvtColor(left_img, cv2.COLOR_BGR2GRAY)
         left_img_RGB = cv2.cvtColor(left_img, cv2.COLOR_BGR2RGB)
         right_img_grayscale = cv2.cvtColor(right_img, cv2.COLOR_BGR2GRAY)
         right_img_RGB = cv2.cvtColor(left_img, cv2.COLOR_BGR2RGB)
-        ply_name = f'reconstructed_{mvs_method}.ply' f'reconstructed_{mvs_method}_gt.ply'
+        ply_name = f'reconstructed_{mvs_method}.ply'
         gt_ply_name = f'reconstructed_{mvs_method}_gt.ply'
         disp_name = f"disp_image.png"
         depth_name = f"depth.png"
@@ -204,8 +202,8 @@ def evaluate_disparity(mvs_method="SGBM", display_images=False, generate_gt_pc=F
         gt_disp = load_scene_disparity(scene, DATASET_FOLDER, display_images, save_path=gt_disp_path)
         gt_depth = Dataset.disp_to_depth(gt_disp, camera_info.focal_length,
                                                 camera_info.doffs, camera_info.baseline)
-        cv2.imshow("depth", gt_depth)
-        cv2.waitKey(0)
+        # cv2.imshow("depth", gt_depth)
+        # cv2.waitKey(0)
         # plt.imshow(gt_depth)
         # plt.show()
         
@@ -216,8 +214,8 @@ def evaluate_disparity(mvs_method="SGBM", display_images=False, generate_gt_pc=F
             open3d.io.write_point_cloud(gt_ply_path, pcd)
 
         win_size = 13
-        min_disp = 0
-        num_disp = int((camera_info.ndisp // 16) * 16)
+        min_disp = int(camera_info.vmin)
+        num_disp = int(((camera_info.vmax-camera_info.vmin) // 16) * 16)
         if mvs_method == "StereoBM":
             stereo_matching = cv2.StereoBM_create(numDisparities=num_disp, blockSize=13)
         #Create Block matching object.
@@ -298,12 +296,12 @@ def main():
     if EVALUATE_KEYPOINT:
         evaluate_keypoints(detector=["sift"], matcher="flann")
         evaluate_keypoints(detector=["sift"], matcher="bf")
-        evaluate_keypoints(detector=["orb"], matcher="flann")
-        evaluate_keypoints(detector=["orb"], matcher="bf")
-        evaluate_keypoints(detector=["surf"], matcher="flann")
-        evaluate_keypoints(detector=["surf"], matcher="bf")
+        # evaluate_keypoints(detector=["orb"], matcher="flann")
+        # evaluate_keypoints(detector=["orb"], matcher="bf")
+        # evaluate_keypoints(detector=["surf"], matcher="flann")
+        # evaluate_keypoints(detector=["surf"], matcher="bf")
     if EVALUATE_DENSE_MATCHING:
-        evaluate_disparity(mvs_method="SGBM", generate_pc=False, gt=False, save_disp=False, save_depth=False)
+        evaluate_disparity(mvs_method="SGBM", generate_pc=True, gt=False, save_disp=False, save_depth=False)
 
     # evaluate disparity maps
 
