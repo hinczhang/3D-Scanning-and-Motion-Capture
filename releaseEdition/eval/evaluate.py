@@ -1,6 +1,7 @@
 '''
 File Created: Monday, 15th Jan 2021 1:35:30 pm
 Author: Shichen Hu (shichen.hu@tum.de)
+I hereby claim that I refered to the OpenCV online documentation for writing this program.
 '''
 import os
 from tkinter import CENTER

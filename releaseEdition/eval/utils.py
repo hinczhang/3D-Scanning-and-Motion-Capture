@@ -2,6 +2,7 @@
 File Created: Monday, 15th Jan 2021 1:35:30 pm
 Author: Shichen Hu (shichen.hu@tum.de)
 Modified based on https://github.com/i3drobotics/stereomideval/blob/main/stereomideval/stereomideval/dataset.py
+Credit to stereomideval repo.
 '''
 import numpy as np
 import re
