@@ -42,9 +42,13 @@ pip install opencv-contrib-python
 cd releaseEdition/eval
 python evaluate.py
 ```
-The evaluation metric is printed out in the terminal.
+The evaluation metric is printed out in the terminal and the point clouds will be generated in the path specified in the file. 
 
- 4.To run the stereo.py, set the correct path at the top of the files, then execute the following commands:
+To evaluate keypoint extraction and matchings: set EVALUATE_KEYPOINT as True in the code,      
+
+To evaluate mvs methods: set EVALUATE_DENSE_MATCHING as True in the code.
+
+ 4.To run the stereo.py, set the variable "DATASET_FOLDER" as the actual path to the middlebury dataset being downloaded&extracted, then execute the following commands:
 ```shell
 cd releaseEdition/eval
 python stereo.py
