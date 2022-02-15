@@ -10,7 +10,7 @@ Even in this kind of situation, I still consider this part would have the educat
  3. RANSAC  
 
 ## Release Edition
-Our codebase depend on Ceres and OpenCV4. to execute the code, you need to correctly install these two dependencies in your local machine. To use SURF, we also configured the xfeatures2d of OpenCV.
+Our codebase depend on Ceres, OpenCV4 and Eigen3. to execute the code, you need to correctly install these two dependencies in your local machine. To use SURF, we also configured the xfeatures2d of OpenCV.
 
 Here, we should clarify our workflow and some tricky components in our code. As to workflow:  
   
@@ -23,22 +23,29 @@ Here, we should clarify our workflow and some tricky components in our code. As 
   
 4. We then use the `PnP` algorithm to get R and T of the current right image, as we have the keypoints and the corresponding 3D points of the right image. Then we try to use the `fusion_structure` function (see [here](https://github.com/hinczhang/3D-Scanning-and-Motion-Capture/blob/be94566c63d8db5dcffb68a6462646c31f565806/releaseEdition/SfM/Stereo.cpp#L220)) to integrate 3D points and, more important, the index stucture, which could be used to inquiry the relationship between 3D points and 2D keypoints;  
   
-5. [Bundle adjustment](https://github.com/hinczhang/3D-Scanning-and-Motion-Capture/blob/be94566c63d8db5dcffb68a6462646c31f565806/releaseEdition/MVStereo/mv_stereo.cpp#L95). We try to load 3D points, keypoints, the intrinsic matrix along with extrinsic matrix to calculate the loss.
+5. [Bundle adjustment](https://github.com/hinczhang/3D-Scanning-and-Motion-Capture/blob/be94566c63d8db5dcffb68a6462646c31f565806/releaseEdition/MVStereo/mv_stereo.cpp#L95). We try to load 3D points, keypoints, the intrinsic matrix along with extrinsic matrix to calculate the loss. To see the detailed explanation of the implemented Bundle Adjustment, refer to the attached [Bundle Adjustment explained.pdf](https://github.com/hinczhang/3D-Scanning-and-Motion-Capture/blob/main/Bundle%20Adjustment%20explained.pdf)
 ## Python Edition (evaluation)
 python edition contains another pipeline consists of SfM and mvs implemented in python (releaseEdition/eval/stereo.py). In addition, the evaluation for various feature extractors, matching methods and stereo dense matching algorithm is included in (releaseEdition/eval/evaluate.py). The evaluation results in the report comes from the execution of "releaseEdition/eval/evaluate.py".
 
-To install dependencies:
+ 1.To install dependencies:
 ```shell
 pip install opencv-python numpy tqdm stereo-mideval
 ```
-To download middlebury2021dataset: download the "all.zip" in [this page](https://vision.middlebury.edu/stereo/data/scenes2021/zip/) and extract the zip file in your working directory.
+ 2.To download middlebury2021dataset: download the "all.zip" in [this page](https://vision.middlebury.edu/stereo/data/scenes2021/zip/) and extract the zip file in your working directory.
 
-To run the evaluate.py, set the variable "DATASET_FOLDER" as the actual path to the middlebury dataset being downloaded&extracted, then execute the following commands:
+ 3.To run the evaluate.py, set the variable "DATASET_FOLDER" as the actual path to the middlebury dataset being downloaded&extracted, then execute the following commands:
 ```shell
 cd releaseEdition/eval
 python evaluate.py
 ```
 The evaluation metric is printed out in the terminal.
+
+ 4.To run the stereo.py, set the correct path at the top of the files, then execute the following commands:
+```shell
+cd releaseEdition/eval
+python stereo.py
+```
+The generated pointcloud will be saved to the path specified in stereo.py.
 
 ## Dataset
 DTU dataset: https://roboimagedata.compute.dtu.dk/  
