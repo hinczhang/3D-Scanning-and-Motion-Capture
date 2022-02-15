@@ -31,6 +31,10 @@ python edition contains another pipeline consists of SfM and mvs implemented in 
 ```shell
 pip install opencv-python numpy tqdm stereo-mideval
 ```
+To use SURF:
+```shell
+pip install opencv-contrib-python
+```
  2.To download middlebury2021dataset: download the "all.zip" in [this page](https://vision.middlebury.edu/stereo/data/scenes2021/zip/) and extract the zip file in your working directory.
 
  3.To run the evaluate.py, set the variable "DATASET_FOLDER" as the actual path to the middlebury dataset being downloaded&extracted, then execute the following commands:
