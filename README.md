@@ -1,6 +1,6 @@
 # 3D-Scanning-and-Motion-Capture
-Mainly for Structure from Motion (SfM) and Multiview Stereo (MVS).
-
+Mainly for Structure from Motion (SfM) and Multiview Stereo (MVS).  
+[![paper](https://img.shields.io/badge/_-Paper-blue?logo=adobeacrobatreader)](https://github.com/hinczhang/3D-Scanning-and-Motion-Capture/blob/main/report.pdf)&nbsp;&nbsp;  
 ## Debug Edition
 Debug edition contains some original test code,containing the full workflow of making the wheel for SfM calculation.  
 However, after comparison, we finally choose OpenCV lib as our tool to finish the release edition.  
